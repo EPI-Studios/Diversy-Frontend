@@ -1,5 +1,9 @@
-<script>
+<script lang="ts">
 	import Sidebar from '$lib/components/Sidebar.svelte';
+	import type { LoggedUser } from '$lib/types';
+
+	export let data: { user: LoggedUser };
+	const { user } = data;
 </script>
 
 <svelte:head>
@@ -8,7 +12,7 @@
 </svelte:head>
 
 <main>
-	<Sidebar />
+	<Sidebar {user} />
 	<slot />
 </main>
 

@@ -3,14 +3,14 @@ export type User = UniversalUser;
 export type UniversalUser = {
 	id: string;
 	username: string;
-	avatarUrl: string;
+	avatar_url: string;
 	online: boolean;
-	createdAt: string;
-	lastLogin: string | null;
+	created_at: string;
+	last_login: string | null;
 };
 
 export type ProfileUser = User & {
-	customCss: string | null;
+	custom_css: string | null;
 };
 
 export type LoggedUser = {

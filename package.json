@@ -36,7 +36,8 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "sass-embedded": "^1.97.3",
-    "svelte-fa": "^4.0.4"
+    "svelte-fa": "^4.0.4",
+    "up-fetch": "^2.5.1"
   },
   "trustedDependencies": [
     "@parcel/watcher"
