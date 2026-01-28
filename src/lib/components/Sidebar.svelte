@@ -14,7 +14,7 @@
 	<div class="profile">
 		{#if user}
 			<a href="/profile">
-				<img src={user.avatar_url ?? '/guest-avatar.png'} alt="User Avatar" class="avatar" />
+				<img src={user.avatarUrl ?? '/guest-avatar.png'} alt="User Avatar" class="avatar" />
 				<h2>{user.username}</h2>
 			</a>
 		{:else}
