@@ -33,4 +33,4 @@ Furthermore, Diversy will be open-source and publicly available on GitHub (But a
 ## Tech Stack
 
 - SvelteKit / Svelte
-- External Backend (Hono, Sequelize, SQLite)
+- External Backend (Hono, Drizzle ORM, SQLite)
