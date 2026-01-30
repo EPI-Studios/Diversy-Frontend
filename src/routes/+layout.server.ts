@@ -1,5 +1,6 @@
 import { up } from 'up-fetch';
 import { root } from '$lib/env.js';
+import type { LoggedUser } from '$lib/types.js';
 
 const upfetch = up(fetch);
 
@@ -17,7 +18,7 @@ export const load = async ({ cookies }) => {
 			}
 		});
 
-		return { user: res };
+		return { user: res as LoggedUser };
 	} catch (e) {
 		console.error('Error fetching user data:', e);
 		return { user: null };

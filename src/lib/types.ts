@@ -1,5 +1,3 @@
-export type User = UniversalUser;
-
 export type UniversalUser = {
 	id: string;
 	username: string;
@@ -9,8 +7,9 @@ export type UniversalUser = {
 	lastLogin: string | null;
 };
 
-export type ProfileUser = User & {
+export type ProfileUser = UniversalUser & {
 	customCss: string | null;
+	biography: string | null;
 };
 
 export type LoggedUser = {

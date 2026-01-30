@@ -50,30 +50,74 @@
 				document.cookie = `token=${token}; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`;
 				await goto('/');
 			} catch (error) {
+				console.log(error);
 				return (message = 'An error occurred. Please try again.');
 			}
 		}
 	}
 </script>
 
-<main>
-	<h1>Get into Diversy</h1>
+<div class="col">
+	<h1>Get Into</h1>
+	<img src="/logo.png" alt="Diversy Logo" />
+</div>
 
-	<form on:submit|preventDefault bind:this={form}>
-		{#if !codeSent}
-			<label for="email">Email:</label>
-			<input type="email" id="email" bind:value={email} required />
-			<button on:click={proceed}>Send Code</button>
-		{:else}
-			<label for="code">Verification Code:</label>
-			<input type="text" id="code" bind:value={code} required minlength="6" maxlength="6" />
-			<button on:click={proceed}>Verify and Login</button>
-		{/if}
+<form on:submit|preventDefault bind:this={form} class="dy dy-form">
+	{#if !codeSent}
+		<label for="email">Email:</label>
 
-		<div class="message">
-			{#key message}
-				<p>{message}</p>
-			{/key}
+		<div class="dy dy-inline">
+			<input
+				type="email"
+				id="email"
+				bind:value={email}
+				required
+				class="dy dy-input dy-input-full-width"
+				autocomplete="off"
+			/>
+			<button on:click={proceed} class="dy dy-button">Send Code</button>
 		</div>
-	</form>
-</main>
+	{:else}
+		<label for="code">Verification Code:</label>
+
+		<div class="dy dy-inline">
+			<input
+				type="text"
+				id="code"
+				bind:value={code}
+				required
+				minlength="6"
+				maxlength="6"
+				class="dy dy-input dy-input-full-width"
+				autocomplete="off"
+			/>
+			<button on:click={proceed} class="dy dy-button">Verify and Login</button>
+		</div>
+	{/if}
+
+	<div class="dy dy-message">
+		{#key message}
+			{#if message}
+				<p>{message}</p>
+			{/if}
+		{/key}
+	</div>
+</form>
+
+<style lang="scss">
+	.col {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h1 {
+			margin-bottom: 0;
+		}
+
+		img {
+			width: 200px;
+			height: auto;
+			margin-top: 10px;
+		}
+	}
+</style>
