@@ -5,6 +5,10 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { up } from 'up-fetch';
+	import markdownit from 'markdown-it';
+	import dompurify from 'dompurify';
+
+	const md = new markdownit();
 
 	export let data;
 	const unsavedChanges = writable(false);
@@ -19,9 +23,10 @@
 
 	if (!user) goto('/login');
 
+	const upfetch = up(fetch);
+
 	onMount(async () => {
 		if (user) {
-			const upfetch = up(fetch);
 			let res = await upfetch(`${root}/users/${user.id}`, {
 				method: 'GET'
 			});
@@ -51,7 +56,25 @@
 		}
 	});
 
-	async function saveChanges() {}
+	async function saveChanges() {
+		if (!data.user) return;
+
+		try {
+			let res = await upfetch(`${root}/users`, {
+				method: 'PUT',
+				headers: {
+					Authorization: `Bearer ${data.user.token}`,
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams(newUserData as any)
+			});
+
+			unsavedChanges.set(false);
+			location.reload();
+		} catch (e) {
+			console.error('Error saving changes:', e);
+		}
+	}
 
 	setInterval(() => {
 		let keys = Object.keys(newUserData) as (keyof ProfileUser)[];
@@ -115,7 +138,7 @@
 						class="dy dy-input"
 					/>
 				{:else if profileUser?.biography}
-					{profileUser.biography}
+					{@html dompurify.sanitize(md.render(profileUser.biography))}
 				{:else}
 					No biography set.
 				{/if}
